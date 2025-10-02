@@ -1,0 +1,12 @@
+test1.py
+test2.py
+.vscode/
+__pycache__/
+env/__pycache__/
+data/__pycache__/
+evaluator/__pycache__/
+models/__pycache__/
+utils/__pycache__/
+trainer/__pycache__/
+logs/
+
