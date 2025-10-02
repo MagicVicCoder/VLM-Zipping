@@ -65,3 +65,17 @@ class BaseMLLM(ABC):
         if self.model:
             return self.model.config.text_config.hidden_size
         return None
+
+
+def get_mllm(config):
+    """
+    Factory function to get the specified MLLM.
+    """
+    if config.MODEL_ID == "Qwen/Qwen2.5-VL-3B-Instruct":
+        from .qwen_mllm import Qwen2_5VL
+        return Qwen2_5VL(model_id=config.MODEL_ID, device=config.DEVICE)
+    # Add other models here
+    # elif config.MODEL_ID == "llava-hf/llava-1.5-7b-hf":
+    #     return Llava(...)
+    else:
+        raise ValueError(f"Unknown model ID: {config.MODEL_ID}")

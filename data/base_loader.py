@@ -26,3 +26,21 @@ class BaseDataLoader(ABC):
 
     def get_test_samples(self):
         return self.test_samples
+
+
+def get_data_loader(config):
+    """
+    Factory function to get the specified data loader.
+    """
+    if config.DATASET_NAME == "lmms-lab/MME":
+        from .mme_loader import MMEDataLoader
+        return MMEDataLoader(
+            name=config.DATASET_NAME,
+            split=config.DATASET_SPLIT,
+            split_ratio=config.TRAIN_TEST_SPLIT_RATIO
+        )
+    # Add other datasets here
+    # elif config.DATASET_NAME == "another-dataset":
+    #     return AnotherDataLoader(...)
+    else:
+        raise ValueError(f"Unknown dataset: {config.DATASET_NAME}")

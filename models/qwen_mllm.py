@@ -65,16 +65,3 @@ class Qwen2_5VL(BaseMLLM):
                 max_new_tokens=max_new_tokens
             )
         return self.processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
-
-
-def get_mllm(config):
-    """
-    Factory function to get the specified MLLM.
-    """
-    if config.MODEL_ID == "Qwen/Qwen2.5-VL-3B-Instruct":
-        return Qwen2_5VL(model_id=config.MODEL_ID, device=config.DEVICE)
-    # Add other models here
-    # elif config.MODEL_ID == "llava-hf/llava-1.5-7b-hf":
-    #     return Llava(...)
-    else:
-        raise ValueError(f"Unknown model ID: {config.MODEL_ID}")

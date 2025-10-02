@@ -118,6 +118,8 @@ def evaluate_performance(policy, config, mllm, data_loader, logger):
         components = mllm.get_components_for_env(image, question)
         visual_features = components['original_visual_features']
         query_embeddings = components['query_embeddings']
+        if components['current_num_patches'] > config.MAX_PATCHES:
+            print(f"Warning: Sample has {components['current_num_patches']} patches, exceeding MAX_PATCHES {config.MAX_PATCHES}. Truncating.")
         current_num_patches = min(components['current_num_patches'], config.MAX_PATCHES)
         text_embeds_part1 = components['text_embeds_part1']
         text_embeds_part2 = components['text_embeds_part2']
@@ -145,14 +147,14 @@ def evaluate_performance(policy, config, mllm, data_loader, logger):
             select_logits[:, current_num_patches:] = -float('inf')
 
         if config.EVAL_MODE == "full":
-            # 遍历所有位置，按 argmax 决策
-            decisions = (keep_logits > 0.5).cpu().numpy()[0]
+            # 遍历所有位置，按阈值决策
+            decisions = (keep_logits > config.THRESHOLD).cpu().numpy()[0]
         elif config.EVAL_MODE == "budget":
             # 仅对概率最高的预算个位置决策
             budget = int(config.EVAL_BUDGET_RATIO * current_num_patches)
             top_indices = torch.topk(select_logits, budget, dim=1).indices.cpu().numpy()
             decisions = np.ones(config.MAX_PATCHES, dtype=int)
-            decisions[top_indices] = (keep_logits > 0.5)[:, top_indices].cpu().numpy()[0]
+            decisions[top_indices] = (keep_logits > config.THRESHOLD)[:, top_indices].cpu().numpy()[0]
         elif config.EVAL_MODE == "none":
             # 不进行剪枝，保留所有原始token
             decisions = np.ones(config.MAX_PATCHES, dtype=int)

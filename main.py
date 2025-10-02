@@ -7,8 +7,8 @@ import logging
 
 # @param {type:"string"}
 import config
-from data.vqa_loader import get_data_loader
-from models.qwen_mllm import get_mllm
+from data.base_loader import get_data_loader
+from models.base_mllm import get_mllm
 from trainer.trainer import setup_environments, setup_policy, train_agent
 from evaluator.evaluator import evaluate_performance
 

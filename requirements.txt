@@ -1,0 +1,9 @@
+datasets==3.3.2
+gymnasium==0.28.1
+numpy==2.3.3
+Pillow==11.3.0
+qwen_vl_utils==0.0.14
+tianshou==1.2.0
+torch==2.8.0+cu126
+tqdm==4.67.1
+transformers==4.57.0.dev0

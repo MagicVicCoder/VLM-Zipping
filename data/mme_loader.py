@@ -2,7 +2,7 @@ import random
 from datasets import load_dataset
 from .base_loader import BaseDataLoader
 
-class VQADataLoader(BaseDataLoader):
+class MMEDataLoader(BaseDataLoader):
     """
     Data loader for VQA datasets like MME.
     """
@@ -22,19 +22,3 @@ class VQADataLoader(BaseDataLoader):
         self.test_samples = all_samples[split_idx:]
         
         print(f"Dataset loaded and split: {len(self.train_samples)} for training, {len(self.test_samples)} for testing.")
-
-def get_data_loader(config):
-    """
-    Factory function to get the specified data loader.
-    """
-    if config.DATASET_NAME == "lmms-lab/MME":
-        return VQADataLoader(
-            name=config.DATASET_NAME,
-            split=config.DATASET_SPLIT,
-            split_ratio=config.TRAIN_TEST_SPLIT_RATIO
-        )
-    # Add other datasets here
-    # elif config.DATASET_NAME == "another-dataset":
-    #     return AnotherDataLoader(...)
-    else:
-        raise ValueError(f"Unknown dataset: {config.DATASET_NAME}")
