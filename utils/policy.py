@@ -98,7 +98,7 @@ class PolicyValueNet(nn.Module):
         batch_size, num_patches, _ = visual_features.shape
         q_expanded = query_embeddings.squeeze(1).expand(-1, num_patches, -1)
         
-        h_odot_q = visual_features * q_expanded
+        #h_odot_q = visual_features * q_expanded
         #fusion_input = torch.cat([visual_features, q_expanded, h_odot_q], dim=-1)
         fusion_input = torch.cat([visual_features, q_expanded], dim=-1)
         hfuse = self.fusion_ffn(fusion_input)
