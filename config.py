@@ -39,7 +39,8 @@ REWARD_NORMALIZATION = True
 
 # --- Training Loop Settings ---
 EPOCHS = 5  # 增加训练轮次以保证收敛
-BATCH_SIZE = 8
+#BATCH_SIZE = 8
+BATCH_SIZE = 4
 BUFFER_SIZE = 8000
 STEP_PER_COLLECT = 1800  # 每次收集的步数
 STEP_PER_EPOCH = 6000    # 每轮的步数
