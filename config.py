@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 # --- Global Settings ---
-os.environ["HF_HOME"] = "/data/users/zjw/huggingface_cache"
+os.environ["HF_HOME"] = "/data/Vic/huggingface_cache"
 os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
 os.environ["CUDA_VISIBLE_DEVICES"] = "3,5,6"
 
